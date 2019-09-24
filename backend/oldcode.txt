@@ -1,0 +1,131 @@
+//..............................................................................................
+// app.post(
+//   "/createuser",
+//   [
+//     check("name")
+//       .not()
+//       .isEmpty(),
+//     check("email").isEmail(),
+//     check("password")
+//       .not()
+//       .isEmpty()
+//   ],
+//   async (req, res) => {
+//     try {
+//       const error = await validationResult(req);
+//       if (!error.isEmpty()) {
+//         return res.status(300).json({
+//           success: false,
+//           message: error
+//         });
+//       }
+//       const name = req.body.name;
+//       const email = req.body.email;
+//       const password = req.body.password;
+//       pool.query(
+//         "INSERT INTO userdata (name,email,password) VALUES ($1, $2 , $3) RETURNING * ",
+//         [name, email, password],
+//         (error, result) => {
+//           if (error) {
+//             res.status(300).json({
+//               success: false,
+//               data: null,
+//               message: error
+//             });
+//           }
+//           if (result) {
+//             res.status(200).json({
+//               success: false,
+//               data: result,
+//               message: "data inserted sucessfully"
+//             });
+//           }
+//         }
+//       );
+//     } catch (error) {
+//       console.log(error);
+//       res.status(300).json({
+//         success: false,
+//         error: error,
+//         message: "server side error"
+//       });
+//     }
+//   }
+// );
+// app.post(
+//   "/login",
+//   [
+//     check("email").isEmail(),
+//     check("password")
+//       .not()
+//       .isEmpty()
+//   ],
+//   async (req, res) => {
+//     try {
+//       const error = await validationResult(req);
+//       if (!error.isEmpty()) {
+//         return res.status(300).json({
+//           success: false,
+//           message: error
+//         });
+//       }
+//       const email = req.body.email;
+//       const password = req.body.password;
+//       pool.query(
+//         `SELECT * FROM userdata WHERE email = $1 AND password = $2 `,
+//         [email, password],
+//         (err, result) => {
+//           if (err) {
+//             res.status(300).json({
+//               success: false,
+//               data: null,
+//               message: "data not found login fail"
+//             });
+//           }
+//           if (result) {
+//             if (result.rowCount > 0) {
+//               return res.status(201).json({
+//                 success: true,
+//                 data: result,
+//                 message: "login sucessfully / valid data"
+//               });
+//             } else {
+//               return res.status(300).json({
+//                 success: false,
+//                 data: null,
+//                 message: "data not found login fail"
+//               });
+//             }
+//           }
+//         }
+//       );
+//     } catch (error) {
+//       console.log(error);
+//       res.status(300).json({
+//         success: false,
+//         error: error,
+//         message: "server side error"
+//       });
+//     }
+//   }
+// );
+
+// app.get("/user", async (req, res) => {
+//   pool.query("SELECT * FROM userdata ", (error, results) => {
+//     if (error) {
+//       return res.status(300).json({
+//         success: false,
+//         data: null,
+//         message: error
+//       });
+//     }
+//     if (results) {
+//       const data = results.rows;
+//       return res.status(201).json({
+//         success: true,
+//         data: data,
+//         message: "select sucessfully"
+//       });
+//     }
+//   });
+// });
